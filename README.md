@@ -3,6 +3,7 @@
 ### A simple, lightweight web application built with core PHP and MySQL to easily log, categorize, and track personal financial expenses.
 
 Expense Tracker helps users keep tabs on their daily spending habits from a centralized local dashboard. It features secure database CRUD operations, user input handling, support for receipt/bill file uploads, and a simple user interface, and is ready to use with a local DDEV development setup.
+
 ---
 
 ## 🚀 Features
