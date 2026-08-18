@@ -2,17 +2,21 @@
 
 ### A simple, lightweight web application built with core PHP and MySQL to easily log, categorize, and track personal financial expenses.
 
-Expense Tracker helps users keep tabs on their daily spending habits from a centralized local dashboard. It features secure database CRUD operations, user input handling, support for receipt/bill file uploads, and a simple user interface, and is ready to use with a local DDEV development setup.
+Expense Tracker is a session-authenticated, multi-user web app for logging and categorizing personal expenses from a local dashboard. Each account is isolated — passwords are hashed with password_hash() / password_verify(), and every database query is scoped to the logged-in user's ID, so one user's data is never visible to another. It's built with core PHP and MySQL, containerized locally with DDEV, and covers the full lifecycle of an expense: adding it, categorizing it, attaching a receipt, marking it recurring, budgeting against it, and exporting it.
 
 ---
 
 ## 🚀 Features
 
-- **Log Expenses:** Add records with an amount, specific date, category, and descriptive notes.
-- **File Uploads:** Securely attach images or documents (like bills or receipts) directly to an expense entry.
-- **Dynamic Summaries:** Automatically calculates and displays spending insights to help monitor budgets.
-- **Full CRUD Functionality:** Seamlessly create, read, update, and delete expense entries from the interface.
-- **Secure Backend:** Implements safe database querying practices to protect data integrity locally.
+- **Log Expenses:** Add an amount, date, category, and notes. Categories can be created inline or picked from a dropdown, both resolving to the same category_id, with duplicates blocked by a unique constraint.
+- **File Uploads:** Attach a receipt or bill to any expense. Uploads are checked against a MIME type allow-list (JPEG, PNG, PDF) and a max size before being saved with move_uploaded_file().
+- **Recurring Expenses:** Flag an expense as recurring so it's automatically counted in every future month's totals.
+- **Budgets:** Set a monthly budget per category and track spend-vs-budget, with totals computed via a LEFT JOIN across matching and recurring expenses.
+- **Dynamic Summaries:** See monthly spending grouped by category, plus a month-over-month percentage change.
+- **CSV Export:** Export expenses in a chosen date range, streamed directly to a CSV via fputcsv().
+- **Category Management:** Rename or delete categories; deleting one cascades to its expenses and budgets via ON DELETE CASCADE.
+- **Full CRUD Functionality:** Create, read, update, and delete expenses end-to-end, with every ID from a form or URL validated with ctype_digit() before it reaches a query.
+- **Secure Backend:** All database access goes through PDO prepared statements (executeQuery()), with PDO::ERRMODE_EXCEPTION set so failures throw instead of failing silently.
 
 ---
 
