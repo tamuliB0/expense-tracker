@@ -10,7 +10,8 @@ $data = [
     $name = trim($_POST["name"] ?? "")
 ];
 validateRequiredFields($data, "Category name cannot be empty", "/categories.php");
-executeQuery(
+try {
+    executeQuery(
     $pdo,
     "UPDATE categories SET name = :name WHERE id = :id AND user_id = :user_id",
     array(
@@ -19,4 +20,10 @@ executeQuery(
         ":user_id" => $_SESSION["id"]
     )
 );
-flashAndRedirect("success", "Category renamed to '$name'", "/categories.php");
+flashAndRedirect("success", "Category renamed to '$name'", "/expense-tracker/categories.php");
+} catch (PDOException $e) {
+    if ($e->errorInfo[0] === "23000" && $e->errorInfo[1] === 1062) {
+        flashAndRedirect("error", "A category named '$name' already exists.", "/expense-tracker/categories.php");
+    }
+    throw $e;
+}
