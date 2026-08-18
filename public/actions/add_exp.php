@@ -5,11 +5,14 @@ requirePost("/dashboard.php");
 $data = [
     $description = trim($_POST["description"] ?? ""),
     $amount = is_numeric($_POST["amount"]) ? $_POST["amount"] : null,
-    $newCategory = trim($_POST["new_category"] ?? ""),
-    $categoryId = $_POST["category_id"] ?? null,
     $date = $_POST["date"] ?? "",
     $userId = $_SESSION["id"]
 ];
+$newCategory = trim($_POST["new_category"] ?? "");
+$categoryId = $_POST["category_id"] ?? null;
+if ($newCategory === "" && $categoryId === null) {
+    flashAndRedirect("error", "Please enter or select a category" , "/dashboard.php");
+} 
 validateRequiredFields($data, "Missing fields", "/dashboard.php");
 $categoryId = getCategoryId($pdo, $newCategory, $categoryId, $userId);
 executeQuery(

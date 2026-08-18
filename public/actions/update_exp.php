@@ -10,10 +10,13 @@ $data = [
     $description = trim($_POST["description"] ?? ""),
     $amount = $_POST["amount"] ?? "",
     $date = $_POST["date"] ?? "",
-    $newCategory = trim($_POST["new_category"] ?? ""),
-    $categoryId = $_POST["category_id"] ?? null,
     $userId = $_SESSION["id"]
 ];
+$newCategory = trim($_POST["new_category"] ?? "");
+$categoryId = $_POST["category_id"] ?? null;
+if ($newCategory === "" && $categoryId === null) {
+    flashAndRedirect("error", "Please enter or select a category" , "/dashboard.php");
+} 
 validateRequiredFields($data, "Missing fields", "/dashboard.php");
 $categoryId = getCategoryId($pdo, $newCategory, $categoryId, $userId);
 fetchOrFail(
