@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             ":user_id" => $_SESSION["id"]
         ),
         "error",
-        "No expense found",
+        "Expense not found",
         "/dashboard.php"
     );
     $currentStatus = (int) $row["recur"];
@@ -48,7 +48,7 @@ $expense = fetchOrFail(
         ":user_id" => $_SESSION["id"]
     ),
     "error",
-    "",
+    "Expense not found",
     "/dashboard.php"
 );
 $flash = flash();
