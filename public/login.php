@@ -7,10 +7,9 @@ if (isLoggedIn()) {
     redirect("/dashboard.php");
 }
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $data = [
-        $submittedUsername = trim($_POST["username"] ?? ""),
-        $submittedPassword = trim($_POST["password"] ?? ""),
-    ];
+    $submittedUsername = trim($_POST["username"] ?? "");
+    $submittedPassword = trim($_POST["password"] ?? "");
+    $data = [$submittedUsername, $submittedPassword];
     validateRequiredFields($data, "All fields are required", "/login.php");
 
     $checkStmt = executeQuery(

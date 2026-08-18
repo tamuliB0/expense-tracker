@@ -15,11 +15,10 @@ $nextDate->modify("+1 month");
 $nextMonth = $nextDate->format("Y-m");
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $data = [
-        $amount = $_POST["amount"] ?? null,
-        $month = $_POST["month"] ?? $currentMonth,
-        $categoryId = $_POST["category_id"] ?? null
-    ];
+    $amount = $_POST["amount"] ?? null;
+    $month = $_POST["month"] ?? $currentMonth;
+    $categoryId = $_POST["category_id"] ?? null;
+    $data = [$amount, $month, $categoryId];
     validateRequiredFields($data, "All fields are required", "/budget.php");
 
     if (!is_numeric($amount) || $amount <= 0) {
