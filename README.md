@@ -47,7 +47,7 @@ Follow these simple steps to clone the repository, initialize the containers, an
 ### 1. Clone the Repository
 Open your terminal and clone this repository down to your local development workspace:
 ```bash
-git clone [https://github.com/tamuliB0/expense-tracker.git](https://github.com/tamuliB0/expense-tracker.git)
+git clone https://github.com/tamuliB0/expense-tracker.git
 cd expense-tracker
 ```
 ### 2. Initialize the DDEV Environment
