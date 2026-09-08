@@ -98,11 +98,24 @@ function handleFileUpload(array $file,
     }
     if ($file["size"] > $maxSize) {
         flashAndRedirect("error", "File size exceeded max limit", "/dashboard.php");
-    } 
-    if (!in_array($file["type"], $allowedType)) {
+    }
+    $mime_type = mime_content_type($file["tmp_name"]);
+    
+    if (!in_array($mime_type, $allowedType, true)) {
         flashAndRedirect("error", "File type not supported", "/dashboard.php");
     }
-    $filename = $file["name"];
+    switch($mime_type) {
+        case "image/jpeg":
+            $extension = "jpg";
+            break;
+        case "image/png":
+            $extension = "png";
+            break;
+        case "application/pdf":
+            $extension = "pdf";
+            break;
+    }
+    $filename = "receipt_" . bin2hex(random_bytes(5)) . $extension;
     if (!move_uploaded_file($file["tmp_name"], $uploads . $filename)) {
         flashAndRedirect("error", "Failed to save file", "/dashboard.php");
     }
