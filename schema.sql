@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL UNIQUE,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -15,9 +16,12 @@ CREATE TABLE IF NOT EXISTS categories (
 
 CREATE TABLE IF NOT EXISTS expenses (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    amount DECIMAL(10,2),
+    amount DECIMAL(10,2) NOT NULL,
     description VARCHAR(255),
     date DATE NOT NULL,
+    end_date DATE,
+    receipt VARCHAR(255),
+    is_recurring TINYINT(1) NOT NULL DEFAULT 0,
     user_id INT NOT NULL,
     category_id INT NOT NULL,
     
