@@ -19,7 +19,7 @@ if ($newCategory === "" && $categoryId === null) {
 } 
 validateRequiredFields($data, "Missing fields", "/dashboard.php");
 $categoryId = getCategoryId($pdo, $newCategory, $categoryId, $userId);
-fetchOrFail(
+$expense = fetchOrFail(
     $pdo,
     "SELECT receipt FROM expenses WHERE id = :id AND user_id = :user_id",
     array(
@@ -31,7 +31,7 @@ fetchOrFail(
     "/dashboard.php"
 );
 $filename = $expense["receipt"];
-$uploads = $dir . "/uploads/";
+$uploads = dirname(__DIR__) . "/uploads/";
 if (isset($_FILES["uploads"]) && $_FILES["uploads"]["error"] !== UPLOAD_ERR_NO_FILE) {
     $filename = handleFileUpload($_FILES["uploads"], $uploads);
 }

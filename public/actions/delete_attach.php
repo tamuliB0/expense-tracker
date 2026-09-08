@@ -23,7 +23,7 @@ $receipt = $row["receipt"];
 if (empty($receipt)) {
     flashAndRedirect("error", "No attachment found", "/details.php?id=". $id);
 } else {
-    $file = $dir . "/uploads/" . $receipt;
+    $file = dirname(__DIR__) . "/uploads/" . $receipt;
     if (file_exists($file)) {
         unlink($file);
     }
