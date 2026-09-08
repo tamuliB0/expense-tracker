@@ -29,7 +29,7 @@ executeQuery(
 );
 $expenseId = $pdo->lastInsertId();
 if (isset($_FILES["uploads"]) && $_FILES["uploads"]["error"] === UPLOAD_ERR_OK) {
-    $uploads = $dir . "/uploads/";
+    $uploads = dirname(__DIR__) . "/uploads/";
     $filename = handleFileUpload($_FILES["uploads"], $uploads);
 
     executeQuery(
