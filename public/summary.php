@@ -60,7 +60,7 @@ $previousTotalStmt = executeQuery(
         ":end" => $prevEndDate
     )
 );
-$previousTotal = $previousTotalStmt->fetch()["previous_total"] ?? 0;
+$previousTotal = $previousTotalStmt->fetch()["total"] ?? 0;
 
 if ($previousTotal <= 0 && $total <= 0) {
     $message = "No expenses in either months";
