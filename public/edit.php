@@ -45,6 +45,7 @@ $flash = flash();
 </head>
 <body>
     <h1>Edit your expense</h1>
+    <a href="/dashboard.php" style="display:inline-block; margin-bottom:15px">Go back</a>
     <?php if ($flash) : ?>
         <div class="flash <?= htmlspecialchars($flash["type"])?>">
             <?= htmlspecialchars($flash["message"])?>
